@@ -1,0 +1,24 @@
+
+stages:
+  - build
+  - test
+
+
+build-job:
+  stage: build
+  image: python:3.9
+  script:
+    - pwd
+    -  cd ./app 
+    - pip install -r requirements.txt
+    - python -m py_compile app.py
+
+
+test-job:
+  stage: test
+  image: python:3.9
+  script:
+    - pip install -r ./app/requirements.txt
+    - pytest
+  only:
+    - main

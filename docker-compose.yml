@@ -1,0 +1,17 @@
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: weather_bot
+    ports:
+      - "8501:8501"  # App port
+
+  ngrok:
+    image: wernight/ngrok
+    command: ngrok http --log=stdout --authtoken=2lMgYktsZqb7pGfZpEJP2uBM7nR_56pEkvXyBifLdEwKXD3X8 app:8501
+    ports:
+      - "4040:4040"  # ngrok port
+    depends_on:
+      - app

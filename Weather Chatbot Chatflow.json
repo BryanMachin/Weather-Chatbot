@@ -1,0 +1,1638 @@
+{
+  "nodes": [
+    {
+      "id": "bufferMemory_0",
+      "position": {
+        "x": 288.12243081325414,
+        "y": -882.3854311490866
+      },
+      "type": "customNode",
+      "data": {
+        "id": "bufferMemory_0",
+        "label": "Buffer Memory",
+        "version": 2,
+        "name": "bufferMemory",
+        "type": "BufferMemory",
+        "baseClasses": [
+          "BufferMemory",
+          "BaseChatMemory",
+          "BaseMemory"
+        ],
+        "category": "Memory",
+        "description": "Retrieve chat messages stored in database",
+        "inputParams": [
+          {
+            "label": "Session Id",
+            "name": "sessionId",
+            "type": "string",
+            "description": "If not specified, a random id will be used. Learn <a target=\"_blank\" href=\"https://docs.flowiseai.com/memory#ui-and-embedded-chat\">more</a>",
+            "default": "",
+            "additionalParams": true,
+            "optional": true,
+            "id": "bufferMemory_0-input-sessionId-string"
+          },
+          {
+            "label": "Memory Key",
+            "name": "memoryKey",
+            "type": "string",
+            "default": "chat_history",
+            "additionalParams": true,
+            "id": "bufferMemory_0-input-memoryKey-string"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "sessionId": "",
+          "memoryKey": "chat_history"
+        },
+        "outputAnchors": [
+          {
+            "id": "bufferMemory_0-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+            "name": "bufferMemory",
+            "label": "BufferMemory",
+            "description": "Retrieve chat messages stored in database",
+            "type": "BufferMemory | BaseChatMemory | BaseMemory"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 250,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 288.12243081325414,
+        "y": -882.3854311490866
+      },
+      "dragging": false
+    },
+    {
+      "id": "inputModerationSimple_0",
+      "position": {
+        "x": 296.06205442599685,
+        "y": 158.99172812488678
+      },
+      "type": "customNode",
+      "data": {
+        "id": "inputModerationSimple_0",
+        "label": "Simple Prompt Moderation",
+        "version": 2,
+        "name": "inputModerationSimple",
+        "type": "Moderation",
+        "baseClasses": [
+          "Moderation"
+        ],
+        "category": "Moderation",
+        "description": "Check whether input consists of any text from Deny list, and prevent being sent to LLM",
+        "inputParams": [
+          {
+            "label": "Deny List",
+            "name": "denyList",
+            "type": "string",
+            "rows": 4,
+            "placeholder": "ignore previous instructions\ndo not follow the directions\nyou must ignore all previous instructions",
+            "description": "An array of string literals (enter one per line) that should not appear in the prompt text.",
+            "id": "inputModerationSimple_0-input-denyList-string"
+          },
+          {
+            "label": "Error Message",
+            "name": "moderationErrorMessage",
+            "type": "string",
+            "rows": 2,
+            "default": "Cannot Process! Input violates content moderation policies.",
+            "optional": true,
+            "id": "inputModerationSimple_0-input-moderationErrorMessage-string"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Chat Model",
+            "name": "model",
+            "type": "BaseChatModel",
+            "description": "Use LLM to detect if the input is similar to those specified in Deny List",
+            "optional": true,
+            "id": "inputModerationSimple_0-input-model-BaseChatModel"
+          }
+        ],
+        "inputs": {
+          "denyList": "Non-weather related questions.\nNon-climate related questions.\nQuestions requesting historical climate data not related to the City of Boulder.",
+          "model": "",
+          "moderationErrorMessage": "Cannot Process! Input violates content moderation policies."
+        },
+        "outputAnchors": [
+          {
+            "id": "inputModerationSimple_0-output-inputModerationSimple-Moderation",
+            "name": "inputModerationSimple",
+            "label": "Moderation",
+            "description": "Check whether input consists of any text from Deny list, and prevent being sent to LLM",
+            "type": "Moderation"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 583,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 296.06205442599685,
+        "y": 158.99172812488678
+      },
+      "dragging": false
+    },
+    {
+      "id": "chainTool_1",
+      "position": {
+        "x": -551.1193448271015,
+        "y": -1520.9956638465621
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chainTool_1",
+        "label": "Chain Tool",
+        "version": 1,
+        "name": "chainTool",
+        "type": "ChainTool",
+        "baseClasses": [
+          "ChainTool",
+          "DynamicTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use a chain as allowed tool for agent",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "name",
+            "type": "string",
+            "placeholder": "state-of-union-qa",
+            "id": "chainTool_1-input-name-string"
+          },
+          {
+            "label": "Chain Description",
+            "name": "description",
+            "type": "string",
+            "rows": 3,
+            "placeholder": "State of the Union QA - useful for when you need to ask questions about the most recent state of the union address.",
+            "id": "chainTool_1-input-description-string"
+          },
+          {
+            "label": "Return Direct",
+            "name": "returnDirect",
+            "type": "boolean",
+            "optional": true,
+            "id": "chainTool_1-input-returnDirect-boolean"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Base Chain",
+            "name": "baseChain",
+            "type": "BaseChain",
+            "id": "chainTool_1-input-baseChain-BaseChain"
+          }
+        ],
+        "inputs": {
+          "name": "Current_weather_of_a_place",
+          "description": "You should only use this tool for questions related to the current weather, not the next few days or the past.",
+          "returnDirect": false,
+          "baseChain": "{{getApiChain_0.data.instance}}"
+        },
+        "outputAnchors": [
+          {
+            "id": "chainTool_1-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+            "name": "chainTool",
+            "label": "ChainTool",
+            "description": "Use a chain as allowed tool for agent",
+            "type": "ChainTool | DynamicTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 601,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -551.1193448271015,
+        "y": -1520.9956638465621
+      },
+      "dragging": false
+    },
+    {
+      "id": "getApiChain_0",
+      "position": {
+        "x": -1266.7259975709437,
+        "y": -1452.3927280389105
+      },
+      "type": "customNode",
+      "data": {
+        "id": "getApiChain_0",
+        "label": "GET API Chain",
+        "version": 1,
+        "name": "getApiChain",
+        "type": "GETApiChain",
+        "baseClasses": [
+          "GETApiChain",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Chains",
+        "description": "Chain to run queries against GET API",
+        "inputParams": [
+          {
+            "label": "API Documentation",
+            "name": "apiDocs",
+            "type": "string",
+            "description": "Description of how API works. Please refer to more <a target=\"_blank\" href=\"https://github.com/langchain-ai/langchain/blob/master/libs/langchain/langchain/chains/api/open_meteo_docs.py\">examples</a>",
+            "rows": 4,
+            "id": "getApiChain_0-input-apiDocs-string"
+          },
+          {
+            "label": "Headers",
+            "name": "headers",
+            "type": "json",
+            "additionalParams": true,
+            "optional": true,
+            "id": "getApiChain_0-input-headers-json"
+          },
+          {
+            "label": "URL Prompt",
+            "name": "urlPrompt",
+            "type": "string",
+            "description": "Prompt used to tell LLMs how to construct the URL. Must contains {api_docs} and {question}",
+            "default": "You are given the below API Documentation:\n{api_docs}\nUsing this documentation, generate the full API url to call for answering the user question.\nYou should build the API url in order to get a response that is as short as possible, while still getting the necessary information to answer the question. Pay attention to deliberately exclude any unnecessary pieces of data in the API call.\n\nQuestion:{question}\nAPI url:",
+            "rows": 4,
+            "additionalParams": true,
+            "id": "getApiChain_0-input-urlPrompt-string"
+          },
+          {
+            "label": "Answer Prompt",
+            "name": "ansPrompt",
+            "type": "string",
+            "description": "Prompt used to tell LLMs how to return the API response. Must contains {api_response}, {api_url}, and {question}",
+            "default": "Given this {api_response} response for {api_url}. use the given response to answer this {question}",
+            "rows": 4,
+            "additionalParams": true,
+            "id": "getApiChain_0-input-ansPrompt-string"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Language Model",
+            "name": "model",
+            "type": "BaseLanguageModel",
+            "id": "getApiChain_0-input-model-BaseLanguageModel"
+          }
+        ],
+        "inputs": {
+          "model": "{{chatGoogleGenerativeAI_1.data.instance}}",
+          "apiDocs": "[Endpoints, only one]\n(Weather for today)\n- https://api.openweathermap.org/data/2.5/weather?q={cityname},us&appid=d4feed32fb7ec33062aefad890e2f4b1\n\n\n\n[Parameters]\nq:\t(required)\tCity name, state code and country code divided by comma, use ISO 3166 country codes. You can specify the parameter not only in English.",
+          "headers": "",
+          "urlPrompt": "You are given the below API Documentation:\n{api_docs}\nUsing this documentation, generate the full API url to call for answering the user question.\nYou should build the API URL to return a simple, concise response that includes the information needed to answer the question. Do not include unnecessary data in the API call.\n\nQuestion:{question}\nAPI url:",
+          "ansPrompt": "Given this response {api_response} for {api_url} please use the given response to answer this {question} in a summarized manner using only the main meteorological variables. The temperatures received from the API are in Kelvin, convert them to Fahrenheit."
+        },
+        "outputAnchors": [
+          {
+            "id": "getApiChain_0-output-getApiChain-GETApiChain|BaseChain|Runnable",
+            "name": "getApiChain",
+            "label": "GETApiChain",
+            "description": "Chain to run queries against GET API",
+            "type": "GETApiChain | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 458,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -1266.7259975709437,
+        "y": -1452.3927280389105
+      }
+    },
+    {
+      "id": "chatGoogleGenerativeAI_0",
+      "position": {
+        "x": 292.73893769747986,
+        "y": -572.2306864526736
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatGoogleGenerativeAI_0",
+        "label": "ChatGoogleGenerativeAI",
+        "version": 2.1,
+        "name": "chatGoogleGenerativeAI",
+        "type": "ChatGoogleGenerativeAI",
+        "baseClasses": [
+          "ChatGoogleGenerativeAI",
+          "LangchainChatGoogleGenerativeAI",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around Google Gemini large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleGenerativeAI"
+            ],
+            "optional": false,
+            "description": "Google Generative AI credential.",
+            "id": "chatGoogleGenerativeAI_0-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "gemini-pro",
+            "id": "chatGoogleGenerativeAI_0-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Custom Model Name",
+            "name": "customModelName",
+            "type": "string",
+            "placeholder": "gemini-1.5-pro-exp-0801",
+            "description": "Custom model name to use. If provided, it will override the model selected",
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-customModelName-string"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatGoogleGenerativeAI_0-input-temperature-number"
+          },
+          {
+            "label": "Max Output Tokens",
+            "name": "maxOutputTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-maxOutputTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-topP-number"
+          },
+          {
+            "label": "Top Next Highest Probability Tokens",
+            "name": "topK",
+            "type": "number",
+            "description": "Decode using top-k sampling: consider the set of top_k most probable tokens. Must be positive",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-topK-number"
+          },
+          {
+            "label": "Harm Category",
+            "name": "harmCategory",
+            "type": "multiOptions",
+            "description": "Refer to <a target=\"_blank\" href=\"https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/configure-safety-attributes#safety_attribute_definitions\">official guide</a> on how to use Harm Category",
+            "options": [
+              {
+                "label": "Dangerous",
+                "name": "HARM_CATEGORY_DANGEROUS_CONTENT"
+              },
+              {
+                "label": "Harassment",
+                "name": "HARM_CATEGORY_HARASSMENT"
+              },
+              {
+                "label": "Hate Speech",
+                "name": "HARM_CATEGORY_HATE_SPEECH"
+              },
+              {
+                "label": "Sexually Explicit",
+                "name": "HARM_CATEGORY_SEXUALLY_EXPLICIT"
+              }
+            ],
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-harmCategory-multiOptions"
+          },
+          {
+            "label": "Harm Block Threshold",
+            "name": "harmBlockThreshold",
+            "type": "multiOptions",
+            "description": "Refer to <a target=\"_blank\" href=\"https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/configure-safety-attributes#safety_setting_thresholds\">official guide</a> on how to use Harm Block Threshold",
+            "options": [
+              {
+                "label": "Low and Above",
+                "name": "BLOCK_LOW_AND_ABOVE"
+              },
+              {
+                "label": "Medium and Above",
+                "name": "BLOCK_MEDIUM_AND_ABOVE"
+              },
+              {
+                "label": "None",
+                "name": "BLOCK_NONE"
+              },
+              {
+                "label": "Only High",
+                "name": "BLOCK_ONLY_HIGH"
+              },
+              {
+                "label": "Threshold Unspecified",
+                "name": "HARM_BLOCK_THRESHOLD_UNSPECIFIED"
+              }
+            ],
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_0-input-harmBlockThreshold-multiOptions"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Automatically uses vision model when image is being uploaded from chat. Only works with LLMChain, Conversation Chain, ReAct Agent, Conversational Agent, Tool Agent",
+            "default": false,
+            "optional": true,
+            "id": "chatGoogleGenerativeAI_0-input-allowImageUploads-boolean"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatGoogleGenerativeAI_0-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "gemini-1.5-flash-latest",
+          "customModelName": "",
+          "temperature": "0.3",
+          "maxOutputTokens": "",
+          "topP": "",
+          "topK": "",
+          "harmCategory": "",
+          "harmBlockThreshold": "",
+          "allowImageUploads": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatGoogleGenerativeAI_0-output-chatGoogleGenerativeAI-ChatGoogleGenerativeAI|LangchainChatGoogleGenerativeAI|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatGoogleGenerativeAI",
+            "label": "ChatGoogleGenerativeAI",
+            "description": "Wrapper around Google Gemini large language models that use the Chat endpoint",
+            "type": "ChatGoogleGenerativeAI | LangchainChatGoogleGenerativeAI | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 668,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 292.73893769747986,
+        "y": -572.2306864526736
+      },
+      "dragging": false
+    },
+    {
+      "id": "chatGoogleGenerativeAI_1",
+      "position": {
+        "x": -1897.4087239845228,
+        "y": -1876.0467937355572
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chatGoogleGenerativeAI_1",
+        "label": "ChatGoogleGenerativeAI",
+        "version": 2.1,
+        "name": "chatGoogleGenerativeAI",
+        "type": "ChatGoogleGenerativeAI",
+        "baseClasses": [
+          "ChatGoogleGenerativeAI",
+          "LangchainChatGoogleGenerativeAI",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around Google Gemini large language models that use the Chat endpoint",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleGenerativeAI"
+            ],
+            "optional": false,
+            "description": "Google Generative AI credential.",
+            "id": "chatGoogleGenerativeAI_1-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "gemini-pro",
+            "id": "chatGoogleGenerativeAI_1-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Custom Model Name",
+            "name": "customModelName",
+            "type": "string",
+            "placeholder": "gemini-1.5-pro-exp-0801",
+            "description": "Custom model name to use. If provided, it will override the model selected",
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_1-input-customModelName-string"
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "chatGoogleGenerativeAI_1-input-temperature-number"
+          },
+          {
+            "label": "Max Output Tokens",
+            "name": "maxOutputTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_1-input-maxOutputTokens-number"
+          },
+          {
+            "label": "Top Probability",
+            "name": "topP",
+            "type": "number",
+            "step": 0.1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_1-input-topP-number"
+          },
+          {
+            "label": "Top Next Highest Probability Tokens",
+            "name": "topK",
+            "type": "number",
+            "description": "Decode using top-k sampling: consider the set of top_k most probable tokens. Must be positive",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_1-input-topK-number"
+          },
+          {
+            "label": "Harm Category",
+            "name": "harmCategory",
+            "type": "multiOptions",
+            "description": "Refer to <a target=\"_blank\" href=\"https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/configure-safety-attributes#safety_attribute_definitions\">official guide</a> on how to use Harm Category",
+            "options": [
+              {
+                "label": "Dangerous",
+                "name": "HARM_CATEGORY_DANGEROUS_CONTENT"
+              },
+              {
+                "label": "Harassment",
+                "name": "HARM_CATEGORY_HARASSMENT"
+              },
+              {
+                "label": "Hate Speech",
+                "name": "HARM_CATEGORY_HATE_SPEECH"
+              },
+              {
+                "label": "Sexually Explicit",
+                "name": "HARM_CATEGORY_SEXUALLY_EXPLICIT"
+              }
+            ],
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_1-input-harmCategory-multiOptions"
+          },
+          {
+            "label": "Harm Block Threshold",
+            "name": "harmBlockThreshold",
+            "type": "multiOptions",
+            "description": "Refer to <a target=\"_blank\" href=\"https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/configure-safety-attributes#safety_setting_thresholds\">official guide</a> on how to use Harm Block Threshold",
+            "options": [
+              {
+                "label": "Low and Above",
+                "name": "BLOCK_LOW_AND_ABOVE"
+              },
+              {
+                "label": "Medium and Above",
+                "name": "BLOCK_MEDIUM_AND_ABOVE"
+              },
+              {
+                "label": "None",
+                "name": "BLOCK_NONE"
+              },
+              {
+                "label": "Only High",
+                "name": "BLOCK_ONLY_HIGH"
+              },
+              {
+                "label": "Threshold Unspecified",
+                "name": "HARM_BLOCK_THRESHOLD_UNSPECIFIED"
+              }
+            ],
+            "optional": true,
+            "additionalParams": true,
+            "id": "chatGoogleGenerativeAI_1-input-harmBlockThreshold-multiOptions"
+          },
+          {
+            "label": "Allow Image Uploads",
+            "name": "allowImageUploads",
+            "type": "boolean",
+            "description": "Automatically uses vision model when image is being uploaded from chat. Only works with LLMChain, Conversation Chain, ReAct Agent, Conversational Agent, Tool Agent",
+            "default": false,
+            "optional": true,
+            "id": "chatGoogleGenerativeAI_1-input-allowImageUploads-boolean"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "chatGoogleGenerativeAI_1-input-cache-BaseCache"
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "gemini-pro",
+          "customModelName": "",
+          "temperature": "0.5",
+          "maxOutputTokens": "",
+          "topP": "0.8",
+          "topK": "",
+          "harmCategory": "",
+          "harmBlockThreshold": "",
+          "allowImageUploads": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "chatGoogleGenerativeAI_1-output-chatGoogleGenerativeAI-ChatGoogleGenerativeAI|LangchainChatGoogleGenerativeAI|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "chatGoogleGenerativeAI",
+            "label": "ChatGoogleGenerativeAI",
+            "description": "Wrapper around Google Gemini large language models that use the Chat endpoint",
+            "type": "ChatGoogleGenerativeAI | LangchainChatGoogleGenerativeAI | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 668,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -1897.4087239845228,
+        "y": -1876.0467937355572
+      },
+      "dragging": false
+    },
+    {
+      "id": "chainTool_2",
+      "position": {
+        "x": -550.4636869426897,
+        "y": -2167.472084522643
+      },
+      "type": "customNode",
+      "data": {
+        "id": "chainTool_2",
+        "label": "Chain Tool",
+        "version": 1,
+        "name": "chainTool",
+        "type": "ChainTool",
+        "baseClasses": [
+          "ChainTool",
+          "DynamicTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use a chain as allowed tool for agent",
+        "inputParams": [
+          {
+            "label": "Chain Name",
+            "name": "name",
+            "type": "string",
+            "placeholder": "state-of-union-qa",
+            "id": "chainTool_2-input-name-string"
+          },
+          {
+            "label": "Chain Description",
+            "name": "description",
+            "type": "string",
+            "rows": 3,
+            "placeholder": "State of the Union QA - useful for when you need to ask questions about the most recent state of the union address.",
+            "id": "chainTool_2-input-description-string"
+          },
+          {
+            "label": "Return Direct",
+            "name": "returnDirect",
+            "type": "boolean",
+            "optional": true,
+            "id": "chainTool_2-input-returnDirect-boolean"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Base Chain",
+            "name": "baseChain",
+            "type": "BaseChain",
+            "id": "chainTool_2-input-baseChain-BaseChain"
+          }
+        ],
+        "inputs": {
+          "name": "Future_weather_of_a_place",
+          "description": "You should only use this tool for questions related to the weather for the next few days, not current or past weather.",
+          "returnDirect": false,
+          "baseChain": "{{getApiChain_1.data.instance}}"
+        },
+        "outputAnchors": [
+          {
+            "id": "chainTool_2-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+            "name": "chainTool",
+            "label": "ChainTool",
+            "description": "Use a chain as allowed tool for agent",
+            "type": "ChainTool | DynamicTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 601,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -550.4636869426897,
+        "y": -2167.472084522643
+      },
+      "dragging": false
+    },
+    {
+      "id": "getApiChain_1",
+      "position": {
+        "x": -1270.3451869098058,
+        "y": -2046.72062390324
+      },
+      "type": "customNode",
+      "data": {
+        "id": "getApiChain_1",
+        "label": "GET API Chain",
+        "version": 1,
+        "name": "getApiChain",
+        "type": "GETApiChain",
+        "baseClasses": [
+          "GETApiChain",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Chains",
+        "description": "Chain to run queries against GET API",
+        "inputParams": [
+          {
+            "label": "API Documentation",
+            "name": "apiDocs",
+            "type": "string",
+            "description": "Description of how API works. Please refer to more <a target=\"_blank\" href=\"https://github.com/langchain-ai/langchain/blob/master/libs/langchain/langchain/chains/api/open_meteo_docs.py\">examples</a>",
+            "rows": 4,
+            "id": "getApiChain_1-input-apiDocs-string"
+          },
+          {
+            "label": "Headers",
+            "name": "headers",
+            "type": "json",
+            "additionalParams": true,
+            "optional": true,
+            "id": "getApiChain_1-input-headers-json"
+          },
+          {
+            "label": "URL Prompt",
+            "name": "urlPrompt",
+            "type": "string",
+            "description": "Prompt used to tell LLMs how to construct the URL. Must contains {api_docs} and {question}",
+            "default": "You are given the below API Documentation:\n{api_docs}\nUsing this documentation, generate the full API url to call for answering the user question.\nYou should build the API url in order to get a response that is as short as possible, while still getting the necessary information to answer the question. Pay attention to deliberately exclude any unnecessary pieces of data in the API call.\n\nQuestion:{question}\nAPI url:",
+            "rows": 4,
+            "additionalParams": true,
+            "id": "getApiChain_1-input-urlPrompt-string"
+          },
+          {
+            "label": "Answer Prompt",
+            "name": "ansPrompt",
+            "type": "string",
+            "description": "Prompt used to tell LLMs how to return the API response. Must contains {api_response}, {api_url}, and {question}",
+            "default": "Given this {api_response} response for {api_url}. use the given response to answer this {question}",
+            "rows": 4,
+            "additionalParams": true,
+            "id": "getApiChain_1-input-ansPrompt-string"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Language Model",
+            "name": "model",
+            "type": "BaseLanguageModel",
+            "id": "getApiChain_1-input-model-BaseLanguageModel"
+          }
+        ],
+        "inputs": {
+          "model": "{{chatGoogleGenerativeAI_1.data.instance}}",
+          "apiDocs": "[Endpoints, only one]\n(Weather for the next few days, not including today)\n- https://api.openweathermap.org/data/2.5/forecast?q={cityname},us&appid=d4feed32fb7ec33062aefad890e2f4b1\n\n\n\n[Parameters]\nq:\t(required)\tCity name, state code and country code divided by comma, use ISO 3166 country codes. You can specify the parameter not only in English.\ntypeinfo: forecast\" (Weather for tomorrow)",
+          "headers": "",
+          "urlPrompt": "You are given the below API Documentation:\n{api_docs}\nUsing this documentation, generate the full API url to call for answering the user question.\nYou should build the API URL to return a simple, concise response that includes the information needed to answer the question. Do not include unnecessary data in the API call.\n\nQuestion:{question}\nAPI url:",
+          "ansPrompt": "Given this response {api_response} for {api_url} please use the given response to answer this {question} in a summarized manner using only the main meteorological variables. The temperatures received from the API are in Kelvin, convert them to Fahrenheit."
+        },
+        "outputAnchors": [
+          {
+            "id": "getApiChain_1-output-getApiChain-GETApiChain|BaseChain|Runnable",
+            "name": "getApiChain",
+            "label": "GETApiChain",
+            "description": "Chain to run queries against GET API",
+            "type": "GETApiChain | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 458,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -1270.3451869098058,
+        "y": -2046.72062390324
+      }
+    },
+    {
+      "id": "retrieverTool_0",
+      "position": {
+        "x": -544.7221910249923,
+        "y": -853.4265600342866
+      },
+      "type": "customNode",
+      "data": {
+        "id": "retrieverTool_0",
+        "label": "Retriever Tool",
+        "version": 2,
+        "name": "retrieverTool",
+        "type": "RetrieverTool",
+        "baseClasses": [
+          "RetrieverTool",
+          "DynamicTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use a retriever as allowed tool for agent",
+        "inputParams": [
+          {
+            "label": "Retriever Name",
+            "name": "name",
+            "type": "string",
+            "placeholder": "search_state_of_union",
+            "id": "retrieverTool_0-input-name-string"
+          },
+          {
+            "label": "Retriever Description",
+            "name": "description",
+            "type": "string",
+            "description": "When should agent uses to retrieve documents",
+            "rows": 3,
+            "placeholder": "Searches and returns documents regarding the state-of-the-union.",
+            "id": "retrieverTool_0-input-description-string"
+          },
+          {
+            "label": "Return Source Documents",
+            "name": "returnSourceDocuments",
+            "type": "boolean",
+            "optional": true,
+            "id": "retrieverTool_0-input-returnSourceDocuments-boolean"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Retriever",
+            "name": "retriever",
+            "type": "BaseRetriever",
+            "id": "retrieverTool_0-input-retriever-BaseRetriever"
+          }
+        ],
+        "inputs": {
+          "name": "Retriever_historical_weather_boulder",
+          "description": "Use this tool to get historical data for Boulder, CO from January 1, 2023 to August 26, 2024.",
+          "retriever": "{{memoryVectorStore_0.data.instance}}",
+          "returnSourceDocuments": false
+        },
+        "outputAnchors": [
+          {
+            "id": "retrieverTool_0-output-retrieverTool-RetrieverTool|DynamicTool|Tool|StructuredTool|Runnable",
+            "name": "retrieverTool",
+            "label": "RetrieverTool",
+            "description": "Use a retriever as allowed tool for agent",
+            "type": "RetrieverTool | DynamicTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 601,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -544.7221910249923,
+        "y": -853.4265600342866
+      },
+      "dragging": false
+    },
+    {
+      "id": "memoryVectorStore_0",
+      "position": {
+        "x": -1256.2029033831038,
+        "y": -743.7434262729464
+      },
+      "type": "customNode",
+      "data": {
+        "id": "memoryVectorStore_0",
+        "label": "In-Memory Vector Store",
+        "version": 1,
+        "name": "memoryVectorStore",
+        "type": "Memory",
+        "baseClasses": [
+          "Memory",
+          "VectorStoreRetriever",
+          "BaseRetriever"
+        ],
+        "category": "Vector Stores",
+        "description": "In-memory vectorstore that stores embeddings and does an exact, linear search for the most similar embeddings.",
+        "inputParams": [
+          {
+            "label": "Top K",
+            "name": "topK",
+            "description": "Number of top results to fetch. Default to 4",
+            "placeholder": "4",
+            "type": "number",
+            "optional": true,
+            "id": "memoryVectorStore_0-input-topK-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Document",
+            "name": "document",
+            "type": "Document",
+            "list": true,
+            "optional": true,
+            "id": "memoryVectorStore_0-input-document-Document"
+          },
+          {
+            "label": "Embeddings",
+            "name": "embeddings",
+            "type": "Embeddings",
+            "id": "memoryVectorStore_0-input-embeddings-Embeddings"
+          }
+        ],
+        "inputs": {
+          "document": [
+            "{{csvFile_0.data.instance}}"
+          ],
+          "embeddings": "{{googleGenerativeAiEmbeddings_0.data.instance}}",
+          "topK": "4"
+        },
+        "outputAnchors": [
+          {
+            "name": "output",
+            "label": "Output",
+            "type": "options",
+            "description": "",
+            "options": [
+              {
+                "id": "memoryVectorStore_0-output-retriever-Memory|VectorStoreRetriever|BaseRetriever",
+                "name": "retriever",
+                "label": "Memory Retriever",
+                "description": "",
+                "type": "Memory | VectorStoreRetriever | BaseRetriever"
+              },
+              {
+                "id": "memoryVectorStore_0-output-vectorStore-Memory|VectorStore",
+                "name": "vectorStore",
+                "label": "Memory Vector Store",
+                "description": "",
+                "type": "Memory | VectorStore"
+              }
+            ],
+            "default": "retriever"
+          }
+        ],
+        "outputs": {
+          "output": "retriever"
+        },
+        "selected": false
+      },
+      "width": 300,
+      "height": 405,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -1256.2029033831038,
+        "y": -743.7434262729464
+      },
+      "dragging": false
+    },
+    {
+      "id": "csvFile_0",
+      "position": {
+        "x": -1891.089748056357,
+        "y": -1042.1505535072433
+      },
+      "type": "customNode",
+      "data": {
+        "id": "csvFile_0",
+        "label": "Csv File",
+        "version": 2,
+        "name": "csvFile",
+        "type": "Document",
+        "baseClasses": [
+          "Document"
+        ],
+        "category": "Document Loaders",
+        "description": "Load data from CSV files",
+        "inputParams": [
+          {
+            "label": "Csv File",
+            "name": "csvFile",
+            "type": "file",
+            "fileType": ".csv",
+            "id": "csvFile_0-input-csvFile-file"
+          },
+          {
+            "label": "Single Column Extraction",
+            "name": "columnName",
+            "type": "string",
+            "description": "Extracting a single column",
+            "placeholder": "Enter column name",
+            "optional": true,
+            "id": "csvFile_0-input-columnName-string"
+          },
+          {
+            "label": "Additional Metadata",
+            "name": "metadata",
+            "type": "json",
+            "description": "Additional metadata to be added to the extracted documents",
+            "optional": true,
+            "additionalParams": true,
+            "id": "csvFile_0-input-metadata-json"
+          },
+          {
+            "label": "Omit Metadata Keys",
+            "name": "omitMetadataKeys",
+            "type": "string",
+            "rows": 4,
+            "description": "Each document loader comes with a default set of metadata keys that are extracted from the document. You can use this field to omit some of the default metadata keys. The value should be a list of keys, seperated by comma. Use * to omit all metadata keys execept the ones you specify in the Additional Metadata field",
+            "placeholder": "key1, key2, key3.nestedKey1",
+            "optional": true,
+            "additionalParams": true,
+            "id": "csvFile_0-input-omitMetadataKeys-string"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Text Splitter",
+            "name": "textSplitter",
+            "type": "TextSplitter",
+            "optional": true,
+            "id": "csvFile_0-input-textSplitter-TextSplitter"
+          }
+        ],
+        "inputs": {
+          "textSplitter": "",
+          "columnName": "",
+          "metadata": "",
+          "omitMetadataKeys": ""
+        },
+        "outputAnchors": [
+          {
+            "name": "output",
+            "label": "Output",
+            "type": "options",
+            "description": "Array of document objects containing metadata and pageContent",
+            "options": [
+              {
+                "id": "csvFile_0-output-document-Document|json",
+                "name": "document",
+                "label": "Document",
+                "description": "Array of document objects containing metadata and pageContent",
+                "type": "Document | json"
+              },
+              {
+                "id": "csvFile_0-output-text-string|json",
+                "name": "text",
+                "label": "Text",
+                "description": "Concatenated string from pageContent of documents",
+                "type": "string | json"
+              }
+            ],
+            "default": "document"
+          }
+        ],
+        "outputs": {
+          "output": "document"
+        },
+        "selected": false
+      },
+      "width": 300,
+      "height": 535,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -1891.089748056357,
+        "y": -1042.1505535072433
+      },
+      "dragging": false
+    },
+    {
+      "id": "googleGenerativeAiEmbeddings_0",
+      "position": {
+        "x": -1888.0268411054071,
+        "y": -415.7182922035143
+      },
+      "type": "customNode",
+      "data": {
+        "id": "googleGenerativeAiEmbeddings_0",
+        "label": "GoogleGenerativeAI Embeddings",
+        "version": 2,
+        "name": "googleGenerativeAiEmbeddings",
+        "type": "GoogleGenerativeAiEmbeddings",
+        "baseClasses": [
+          "GoogleGenerativeAiEmbeddings",
+          "Embeddings"
+        ],
+        "category": "Embeddings",
+        "description": "Google Generative API to generate embeddings for a given text",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "googleGenerativeAI"
+            ],
+            "optional": false,
+            "description": "Google Generative AI credential.",
+            "id": "googleGenerativeAiEmbeddings_0-input-credential-credential"
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "default": "embedding-001",
+            "id": "googleGenerativeAiEmbeddings_0-input-modelName-asyncOptions"
+          },
+          {
+            "label": "Task Type",
+            "name": "tasktype",
+            "type": "options",
+            "description": "Type of task for which the embedding will be used",
+            "options": [
+              {
+                "label": "TASK_TYPE_UNSPECIFIED",
+                "name": "TASK_TYPE_UNSPECIFIED"
+              },
+              {
+                "label": "RETRIEVAL_QUERY",
+                "name": "RETRIEVAL_QUERY"
+              },
+              {
+                "label": "RETRIEVAL_DOCUMENT",
+                "name": "RETRIEVAL_DOCUMENT"
+              },
+              {
+                "label": "SEMANTIC_SIMILARITY",
+                "name": "SEMANTIC_SIMILARITY"
+              },
+              {
+                "label": "CLASSIFICATION",
+                "name": "CLASSIFICATION"
+              },
+              {
+                "label": "CLUSTERING",
+                "name": "CLUSTERING"
+              }
+            ],
+            "default": "TASK_TYPE_UNSPECIFIED",
+            "id": "googleGenerativeAiEmbeddings_0-input-tasktype-options"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "modelName": "text-embedding-004",
+          "tasktype": "RETRIEVAL_QUERY"
+        },
+        "outputAnchors": [
+          {
+            "id": "googleGenerativeAiEmbeddings_0-output-googleGenerativeAiEmbeddings-GoogleGenerativeAiEmbeddings|Embeddings",
+            "name": "googleGenerativeAiEmbeddings",
+            "label": "GoogleGenerativeAiEmbeddings",
+            "description": "Google Generative API to generate embeddings for a given text",
+            "type": "GoogleGenerativeAiEmbeddings | Embeddings"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 465,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -1888.0268411054071,
+        "y": -415.7182922035143
+      }
+    },
+    {
+      "id": "toolAgent_0",
+      "position": {
+        "x": 711.8037058387014,
+        "y": -1482.1321736538619
+      },
+      "type": "customNode",
+      "data": {
+        "id": "toolAgent_0",
+        "label": "Tool Agent",
+        "version": 2,
+        "name": "toolAgent",
+        "type": "AgentExecutor",
+        "baseClasses": [
+          "AgentExecutor",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Agents",
+        "description": "Agent that uses Function Calling to pick the tools and args to call",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessage",
+            "type": "string",
+            "default": "You are a helpful AI assistant.",
+            "description": "If Chat Prompt Template is provided, this will be ignored",
+            "rows": 4,
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_0-input-systemMessage-string"
+          },
+          {
+            "label": "Max Iterations",
+            "name": "maxIterations",
+            "type": "number",
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_0-input-maxIterations-number"
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Tools",
+            "name": "tools",
+            "type": "Tool",
+            "list": true,
+            "id": "toolAgent_0-input-tools-Tool"
+          },
+          {
+            "label": "Memory",
+            "name": "memory",
+            "type": "BaseChatMemory",
+            "id": "toolAgent_0-input-memory-BaseChatMemory"
+          },
+          {
+            "label": "Tool Calling Chat Model",
+            "name": "model",
+            "type": "BaseChatModel",
+            "description": "Only compatible with models that are capable of function calling: ChatOpenAI, ChatMistral, ChatAnthropic, ChatGoogleGenerativeAI, ChatVertexAI, GroqChat",
+            "id": "toolAgent_0-input-model-BaseChatModel"
+          },
+          {
+            "label": "Chat Prompt Template",
+            "name": "chatPromptTemplate",
+            "type": "ChatPromptTemplate",
+            "description": "Override existing prompt with Chat Prompt Template. Human Message must includes {input} variable",
+            "optional": true,
+            "id": "toolAgent_0-input-chatPromptTemplate-ChatPromptTemplate"
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "toolAgent_0-input-inputModeration-Moderation"
+          }
+        ],
+        "inputs": {
+          "tools": [
+            "{{requestsGet_3.data.instance}}",
+            "{{chainTool_1.data.instance}}",
+            "{{calculator_0.data.instance}}",
+            "{{chainTool_2.data.instance}}",
+            "{{retrieverTool_0.data.instance}}"
+          ],
+          "memory": "{{bufferMemory_0.data.instance}}",
+          "model": "{{chatGoogleGenerativeAI_0.data.instance}}",
+          "chatPromptTemplate": "",
+          "systemMessage": "You are a bot dedicated to answering questions about the weather. You will allow users to ask about the weather conditions of specific locations during their conversation, including current and future forecasts. You must be able to provide your opinion based on the data obtained by the tools. For questions related to historical data, you will only be able to answer questions about Boulder, CO, or Boulder. You must answer questions that compare the weather at different times and provide your opinion. Filter phrases like \"last month\", \"last year\", \"this day last year\", \"last year on this day\", \"a year ago today\", \"on this date last year\", etc. and calculate the precise date before using the Retriever_historical_weather_boulder tool.",
+          "inputModeration": [
+            "{{inputModerationSimple_0.data.instance}}"
+          ],
+          "maxIterations": "10"
+        },
+        "outputAnchors": [
+          {
+            "id": "toolAgent_0-output-toolAgent-AgentExecutor|BaseChain|Runnable",
+            "name": "toolAgent",
+            "label": "AgentExecutor",
+            "description": "Agent that uses Function Calling to pick the tools and args to call",
+            "type": "AgentExecutor | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 483,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 711.8037058387014,
+        "y": -1482.1321736538619
+      }
+    },
+    {
+      "id": "calculator_0",
+      "position": {
+        "x": 302.97333992850173,
+        "y": -1910.0770410599384
+      },
+      "type": "customNode",
+      "data": {
+        "id": "calculator_0",
+        "label": "Calculator",
+        "version": 1,
+        "name": "calculator",
+        "type": "Calculator",
+        "baseClasses": [
+          "Calculator",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Perform calculations on response",
+        "inputParams": [],
+        "inputAnchors": [],
+        "inputs": {},
+        "outputAnchors": [
+          {
+            "id": "calculator_0-output-calculator-Calculator|Tool|StructuredTool|Runnable",
+            "name": "calculator",
+            "label": "Calculator",
+            "description": "Perform calculations on response",
+            "type": "Calculator | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 142,
+      "positionAbsolute": {
+        "x": 302.97333992850173,
+        "y": -1910.0770410599384
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "requestsGet_3",
+      "position": {
+        "x": 306.75292130474224,
+        "y": -2203.5584846615425
+      },
+      "type": "customNode",
+      "data": {
+        "id": "requestsGet_3",
+        "label": "Requests Get",
+        "version": 1,
+        "name": "requestsGet",
+        "type": "RequestsGet",
+        "baseClasses": [
+          "RequestsGet",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Execute HTTP GET requests",
+        "inputParams": [
+          {
+            "label": "URL",
+            "name": "url",
+            "type": "string",
+            "description": "Agent will make call to this exact URL. If not specified, agent will try to figure out itself from AIPlugin if provided",
+            "additionalParams": true,
+            "optional": true,
+            "id": "requestsGet_3-input-url-string"
+          },
+          {
+            "label": "Description",
+            "name": "description",
+            "type": "string",
+            "rows": 4,
+            "default": "A portal to the internet. Use this when you need to get specific content from a website. \nInput should be a  url (i.e. https://www.google.com). The output will be the text response of the GET request.",
+            "description": "Acts like a prompt to tell agent when it should use this tool",
+            "additionalParams": true,
+            "optional": true,
+            "id": "requestsGet_3-input-description-string"
+          },
+          {
+            "label": "Headers",
+            "name": "headers",
+            "type": "json",
+            "additionalParams": true,
+            "optional": true,
+            "id": "requestsGet_3-input-headers-json"
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "url": "http://worldtimeapi.org/api/ip",
+          "description": "Always use this tool, it will help you to know: today's date, today's month, today's day.",
+          "headers": "{\"datetime\":\"{url}\"}"
+        },
+        "outputAnchors": [
+          {
+            "id": "requestsGet_3-output-requestsGet-RequestsGet|Tool|StructuredTool|Runnable",
+            "name": "requestsGet",
+            "label": "RequestsGet",
+            "description": "Execute HTTP GET requests",
+            "type": "RequestsGet | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 250,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 306.75292130474224,
+        "y": -2203.5584846615425
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "getApiChain_0",
+      "sourceHandle": "getApiChain_0-output-getApiChain-GETApiChain|BaseChain|Runnable",
+      "target": "chainTool_1",
+      "targetHandle": "chainTool_1-input-baseChain-BaseChain",
+      "type": "buttonedge",
+      "id": "getApiChain_0-getApiChain_0-output-getApiChain-GETApiChain|BaseChain|Runnable-chainTool_1-chainTool_1-input-baseChain-BaseChain"
+    },
+    {
+      "source": "chatGoogleGenerativeAI_1",
+      "sourceHandle": "chatGoogleGenerativeAI_1-output-chatGoogleGenerativeAI-ChatGoogleGenerativeAI|LangchainChatGoogleGenerativeAI|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "getApiChain_0",
+      "targetHandle": "getApiChain_0-input-model-BaseLanguageModel",
+      "type": "buttonedge",
+      "id": "chatGoogleGenerativeAI_1-chatGoogleGenerativeAI_1-output-chatGoogleGenerativeAI-ChatGoogleGenerativeAI|LangchainChatGoogleGenerativeAI|BaseChatModel|BaseLanguageModel|Runnable-getApiChain_0-getApiChain_0-input-model-BaseLanguageModel"
+    },
+    {
+      "source": "chatGoogleGenerativeAI_1",
+      "sourceHandle": "chatGoogleGenerativeAI_1-output-chatGoogleGenerativeAI-ChatGoogleGenerativeAI|LangchainChatGoogleGenerativeAI|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "getApiChain_1",
+      "targetHandle": "getApiChain_1-input-model-BaseLanguageModel",
+      "type": "buttonedge",
+      "id": "chatGoogleGenerativeAI_1-chatGoogleGenerativeAI_1-output-chatGoogleGenerativeAI-ChatGoogleGenerativeAI|LangchainChatGoogleGenerativeAI|BaseChatModel|BaseLanguageModel|Runnable-getApiChain_1-getApiChain_1-input-model-BaseLanguageModel"
+    },
+    {
+      "source": "getApiChain_1",
+      "sourceHandle": "getApiChain_1-output-getApiChain-GETApiChain|BaseChain|Runnable",
+      "target": "chainTool_2",
+      "targetHandle": "chainTool_2-input-baseChain-BaseChain",
+      "type": "buttonedge",
+      "id": "getApiChain_1-getApiChain_1-output-getApiChain-GETApiChain|BaseChain|Runnable-chainTool_2-chainTool_2-input-baseChain-BaseChain"
+    },
+    {
+      "source": "googleGenerativeAiEmbeddings_0",
+      "sourceHandle": "googleGenerativeAiEmbeddings_0-output-googleGenerativeAiEmbeddings-GoogleGenerativeAiEmbeddings|Embeddings",
+      "target": "memoryVectorStore_0",
+      "targetHandle": "memoryVectorStore_0-input-embeddings-Embeddings",
+      "type": "buttonedge",
+      "id": "googleGenerativeAiEmbeddings_0-googleGenerativeAiEmbeddings_0-output-googleGenerativeAiEmbeddings-GoogleGenerativeAiEmbeddings|Embeddings-memoryVectorStore_0-memoryVectorStore_0-input-embeddings-Embeddings"
+    },
+    {
+      "source": "csvFile_0",
+      "sourceHandle": "csvFile_0-output-document-Document|json",
+      "target": "memoryVectorStore_0",
+      "targetHandle": "memoryVectorStore_0-input-document-Document",
+      "type": "buttonedge",
+      "id": "csvFile_0-csvFile_0-output-document-Document|json-memoryVectorStore_0-memoryVectorStore_0-input-document-Document"
+    },
+    {
+      "source": "chainTool_1",
+      "sourceHandle": "chainTool_1-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "chainTool_1-chainTool_1-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    },
+    {
+      "source": "chatGoogleGenerativeAI_0",
+      "sourceHandle": "chatGoogleGenerativeAI_0-output-chatGoogleGenerativeAI-ChatGoogleGenerativeAI|LangchainChatGoogleGenerativeAI|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-model-BaseChatModel",
+      "type": "buttonedge",
+      "id": "chatGoogleGenerativeAI_0-chatGoogleGenerativeAI_0-output-chatGoogleGenerativeAI-ChatGoogleGenerativeAI|LangchainChatGoogleGenerativeAI|BaseChatModel|BaseLanguageModel|Runnable-toolAgent_0-toolAgent_0-input-model-BaseChatModel"
+    },
+    {
+      "source": "bufferMemory_0",
+      "sourceHandle": "bufferMemory_0-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-memory-BaseChatMemory",
+      "type": "buttonedge",
+      "id": "bufferMemory_0-bufferMemory_0-output-bufferMemory-BufferMemory|BaseChatMemory|BaseMemory-toolAgent_0-toolAgent_0-input-memory-BaseChatMemory"
+    },
+    {
+      "source": "inputModerationSimple_0",
+      "sourceHandle": "inputModerationSimple_0-output-inputModerationSimple-Moderation",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-inputModeration-Moderation",
+      "type": "buttonedge",
+      "id": "inputModerationSimple_0-inputModerationSimple_0-output-inputModerationSimple-Moderation-toolAgent_0-toolAgent_0-input-inputModeration-Moderation"
+    },
+    {
+      "source": "calculator_0",
+      "sourceHandle": "calculator_0-output-calculator-Calculator|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "calculator_0-calculator_0-output-calculator-Calculator|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    },
+    {
+      "source": "chainTool_2",
+      "sourceHandle": "chainTool_2-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "chainTool_2-chainTool_2-output-chainTool-ChainTool|DynamicTool|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    },
+    {
+      "source": "requestsGet_3",
+      "sourceHandle": "requestsGet_3-output-requestsGet-RequestsGet|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "requestsGet_3-requestsGet_3-output-requestsGet-RequestsGet|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    },
+    {
+      "source": "memoryVectorStore_0",
+      "sourceHandle": "memoryVectorStore_0-output-retriever-Memory|VectorStoreRetriever|BaseRetriever",
+      "target": "retrieverTool_0",
+      "targetHandle": "retrieverTool_0-input-retriever-BaseRetriever",
+      "type": "buttonedge",
+      "id": "memoryVectorStore_0-memoryVectorStore_0-output-retriever-Memory|VectorStoreRetriever|BaseRetriever-retrieverTool_0-retrieverTool_0-input-retriever-BaseRetriever"
+    },
+    {
+      "source": "retrieverTool_0",
+      "sourceHandle": "retrieverTool_0-output-retrieverTool-RetrieverTool|DynamicTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "retrieverTool_0-retrieverTool_0-output-retrieverTool-RetrieverTool|DynamicTool|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    }
+  ]
+}
